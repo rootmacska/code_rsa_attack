@@ -9,7 +9,7 @@ def failFunction():
 
 def outputPrimes(a, n):
     p = math.gcd(a, n)
-    q = int(n / p)
+    q = n // p
     if p > q:
         p, q = q, p
     print("Found factors p and q")
