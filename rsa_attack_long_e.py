@@ -1,11 +1,7 @@
-import quadratic_sieve as prime_fac
-
-#print(prime_fac.factorize(n = 21986209349522598669810906865768024040510874833876982838576681331542309207547008218894072567095416373659497230133396569323359898371317789548133481802145312769895831863123149387038220821712773786960781756311664121510622866921173866500595409454901147010013471749478924826426822441873737331716495921635931883569963555187083485598206980529116827877795567026250074202265927360532074462873436662506582235080339443933241625359591476428997279199451820908821582619548286654231931531356251085596993523325271292315727665008270293782837742921563562663832006966733277787971278021005846570498685386487009374677868911522765753502223, b = 100000))
-
 import owiener
-
 import math  # for gcd function (or easily implementable to avoid import)
 import random  # for random elements drawing in RecoverPrimeFactors
+
 
 def failFunction():
     print("Prime factors not found")
@@ -13,25 +9,25 @@ def failFunction():
 
 def outputPrimes(a, n):
     p = math.gcd(a, n)
-    q = int(n/p)
+    q = int(n / p)
     if p > q:
         p, q = q, p
     print("Found factors p and q")
     print("p = {0}".format(str(p)))
     print("q = {0}".format(str(q)))
-    print("Check p * q = ", p*q)
+    print("Check p * q = ", p * q)
     return p, q
 
 
 def RecoverPrimeFactors(n, e, d):
     """The following algorithm recovers the prime factor
-            s of a modulus, given the public and private
-            exponents.
-            Function call: RecoverPrimeFactors(n, e, d)
-            Input: 	n: modulus
-                            e: public exponent
-                            d: private exponent
-            Output: (p, q): prime factors of modulus"""
+    s of a modulus, given the public and private
+    exponents.
+    Function call: RecoverPrimeFactors(n, e, d)
+    Input: 	n: modulus
+                    e: public exponent
+                    d: private exponent
+    Output: (p, q): prime factors of modulus"""
 
     k = d * e - 1
     if k % 2 == 1:
@@ -40,7 +36,7 @@ def RecoverPrimeFactors(n, e, d):
     else:
         t = 0
         r = k
-        while(r % 2 == 0):
+        while r % 2 == 0:
             r = r // 2
             t += 1
         for i in range(1, 101):
@@ -62,6 +58,7 @@ def RecoverPrimeFactors(n, e, d):
                         p, q = outputPrimes(y - 1, n)
                         return p, q
 
+
 n = 21991232899020757667180708939003545471279700034913931387275370649484106213493746354134516938874683722532376522428739266831139982942037647489613088565834625396270116948482205233937311403693804017272705867342159850843308530001872731667565741346582215077293242970006473486509965365929587251903494207313928176058515727281298368666934123057519040352255360265190524877179165787262999219352376695956654193963802488345737739750543388868502221204357840956405751039414535031641247236228671392078875980200356717694181270438688970492725419513292742560009022330977944092829578706789218989389932864305999884300269715051661053097943
 e = 65537
 
@@ -80,5 +77,5 @@ d2 = owiener.attack(e2, n2)
 if d is None:
     print("Failed")
 else:
-    RecoverPrimeFactors(n,e,d)
+    RecoverPrimeFactors(n, e, d)
     RecoverPrimeFactors(n2, e2, d2)
